@@ -35,7 +35,7 @@ df['sort'] = df['sort'].apply(lambda cell: cell[0])
 df['alcoholPercentage'] = df['alcoholPercentage'].apply(lambda cell: cell/100)
 # Convert to float
 for col in ['volume', 'regularPrice', '_currentPrice', '_regularPrice', '_score', 'currentPrice']:
-    df[col] = df[col].apply(lambda cell: float(cell))
+    df[col] = df[col].apply(lambda cell: float(cell) if cell else np.nan)
 
 # Composite columns
 # Total volume
@@ -59,12 +59,12 @@ df_periodicdata = df[['time', 'sku', 'currentPrice', 'availableUnits', 'storeCou
 
 # Yearly data
 # This is done in feather because csv would be too large :(
-if os.path.isfile(f"periodicdata/{current_time.year}-all.h5"):
-    df_h5 = pd.read_hdf(f"periodicdata/{current_time.year}-all.h5", key='df')
-    df_yearly = pd.concat([df_h5, df_periodicdata])
+if os.path.isfile(f"periodicdata/{current_time.year}-all.csv.bz2"):
+    df_read = pd.read_csv(f"periodicdata/{current_time.year}-all.csv.bz2", compression="bz2")
+    df_yearly = pd.concat([df_read, df_periodicdata])
 else:
     df_yearly = df_periodicdata
-df_yearly.to_hdf(f"periodicdata/{current_time.year}-all.h5", key='df')
+df_yearly.to_csv(f"periodicdata/{current_time.year}-all.csv.bz2", compression="bz2")
 
 # Generate "legend" table by SKU
 if os.path.isfile(f"periodicdata/{current_time.year}-skus.csv"):
