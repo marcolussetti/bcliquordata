@@ -28,7 +28,7 @@ jobs:
         run: |-
           git config user.name "Automated run"
           git config user.email "actions@users.noreply.github.com"
-          git add -A *.json *.csv *.csv.gz *.csv.bz2
+          git add -A *.json *.csv *.csv.bz2
           timestamp=$(date -u -Is)
           git commit -m "Update data on ${timestamp}" || exit 0
           git push
