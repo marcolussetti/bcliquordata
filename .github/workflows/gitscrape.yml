@@ -1,35 +1,35 @@
-name: Fetch the latest BC Liquor Store Live Data
+# name: Fetch the latest BC Liquor Store Live Data
 
-on:
-  schedule:
-    - cron: "1 15-23 * * *"
-    - cron: "1 0-5 * * *"
+# on:
+#   schedule:
+#     - cron: "1 15-23 * * *"
+#     - cron: "1 0-5 * * *"
 
-jobs:
-  scheduled:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Fetches repo
-        uses: actions/checkout@v2
-      - name: Installs python
-        uses: actions/setup-python@v2
-        with:
-          python-version: 3.9
-      - name: Installs dependencies
-        run: |-
-          python -m pip install -r requirements.txt
-      - name: Generate jsons
-        run: |-
-          python gitscrape.py
-      - name: Generate csvs
-        run: |-
-          python periodicdata.py
-      - name: Add results to repo
-        run: |-
-          git config user.name "Automated run"
-          git config user.email "actions@users.noreply.github.com"
-          git add -A *.json *.csv *.csv.bz2
-          timestamp=$(date -u -Is)
-          git commit -m "Update data on ${timestamp}" || exit 0
-          git push
+# jobs:
+#   scheduled:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Fetches repo
+#         uses: actions/checkout@v2
+#       - name: Installs python
+#         uses: actions/setup-python@v2
+#         with:
+#           python-version: 3.9
+#       - name: Installs dependencies
+#         run: |-
+#           python -m pip install -r requirements.txt
+#       - name: Generate jsons
+#         run: |-
+#           python gitscrape.py
+#       - name: Generate csvs
+#         run: |-
+#           python periodicdata.py
+#       - name: Add results to repo
+#         run: |-
+#           git config user.name "Automated run"
+#           git config user.email "actions@users.noreply.github.com"
+#           git add -A *.json *.csv *.csv.bz2
+#           timestamp=$(date -u -Is)
+#           git commit -m "Update data on ${timestamp}" || exit 0
+#           git push
 
