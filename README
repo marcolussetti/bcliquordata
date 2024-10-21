@@ -1,0 +1,23 @@
+# BC Liquor Store Data Aggregation Project
+
+## Project Overview
+
+This project aims to aggregate and process data from BC Liquor Stores. It fetches product data from various categories such as wines, beers, spirits, and coolers/ciders. The data is then processed to compute additional metrics like total alcohol content, price per alcohol content, and other useful metrics for further analysis.
+
+The processed data is saved periodically (monthly and yearly) for future reference and deeper analysis. The data is saved in CSV and Feather formats to ensure efficient storage and access.
+
+## Requirements
+
+To run this project, you will need the following:
+
+- Python 3.x
+- The following Python libraries:
+  - `requests`
+  - `pandas`
+  - `numpy`
+  - `itertools`
+
+You can install the dependencies using `pip`:
+
+```bash
+pip install -r requirements.txt
